@@ -6,6 +6,7 @@ import me.athlaeos.valhallammo.configuration.ConfigManager;
 import me.athlaeos.valhallammo.configuration.ConfigUpdater;
 import me.athlaeos.valhallammo.crafting.CustomRecipeRegistry;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierScalingPresets;
+import me.athlaeos.valhallammo.dom.Catch;
 import me.athlaeos.valhallammo.dom.MinecraftVersion;
 import me.athlaeos.valhallammo.entities.Dummy;
 import me.athlaeos.valhallammo.entities.EntityAttributeStats;
@@ -57,7 +58,15 @@ public class ValhallaMMO extends JavaPlugin {
     private static boolean resourcePackConfigForced = false;
     private static final Map<Class<? extends PluginHook>, PluginHook> activeHooks = new HashMap<>();
     private static YamlConfiguration pluginConfig;
-    private final static Collection<String> worldBlacklist = new HashSet<>();
+    private static final Collection<String> worldBlacklist = new HashSet<>();
+    private static final boolean usingPaperMC = Catch.catchOrElse(() -> {
+        try {
+            Class.forName("com.destroystokyo.paper.loottable.LootableInventory");
+        } catch (ClassNotFoundException exception) {
+            return false;
+        }
+        return true;
+    }, false);
 
     {
         instance = this;
@@ -93,6 +102,7 @@ public class ValhallaMMO extends JavaPlugin {
         saveConfig("block_conversions.yml");
         saveConfig("scaling_presets.yml");
         saveConfig("alpha_conversion.yml");
+        saveConfig("default_block_hardnesses.yml");
 
         // skill configs
         saveConfig("skills/alchemy.yml");
@@ -410,5 +420,9 @@ public class ValhallaMMO extends JavaPlugin {
 
     public static boolean isCustomMiningEnabled() {
         return customMiningSystem;
+    }
+
+    public static boolean isUsingPaperMC() {
+        return usingPaperMC;
     }
 }

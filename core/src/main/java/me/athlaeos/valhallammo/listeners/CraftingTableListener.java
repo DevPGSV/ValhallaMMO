@@ -281,6 +281,8 @@ public class CraftingTableListener implements Listener {
             return;
         }
 
+        if (crafted instanceof Keyed k && !CustomRecipeRegistry.getGridRecipesByKey().containsKey(k.getKey())) return;
+
         if ((crafted instanceof ShapedRecipe || crafted instanceof ShapelessRecipe) && !e.getViewers().isEmpty()){
             DynamicGridRecipe recipe = CustomRecipeRegistry.getGridRecipesByKey().get(((Keyed) crafted).getKey());
             if (recipe == null) {

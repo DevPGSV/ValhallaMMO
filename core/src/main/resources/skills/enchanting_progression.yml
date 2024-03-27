@@ -7,7 +7,7 @@ experience:
   exp_level_curve: '(%level% + 75 * 2^(%level%/7.6)) + 300'
   max_level: 100
   exp_gain:
-    experience_spent_conversion: 2 # The fraction of spent experience during enchanting that's converted into additional enchanting skill experience
+    experience_spent_conversion: 0.5 # The fraction of spent experience during enchanting that's converted into additional enchanting skill experience
     enchantment_base:
       power: 180
       efficiency: 180
@@ -94,9 +94,10 @@ experience:
     # is reduced to only 20% (multiplier of 0.2). Now their tally counter is 5 instead of 55, so their experience isn't reduced.
     multiplier: 0.2
     amount: 10
-    on:
+    mobs:
       - ENDERMAN
       - ZOMBIFIED_PIGLIN
+      - GUARDIAN
     mob_experience: # Alternatively, you may also choose to directly reduce (or buff!) the enchanting experience rewarded from these
       # entities. In case you want to nerf popular experience farms such as Endermen or Zombie Piglin grinders.
       # By default these multipliers are 1.0 so they don't do anything, they are just there as examples.

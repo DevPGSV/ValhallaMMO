@@ -187,6 +187,7 @@ public class Utils {
     private static final Map<String, Double> evalCache = new HashMap<>();
     private static final MathEval math = new MathEval();
     public static double eval(String expression) {
+        expression = expression.replaceAll(",", ".");
         if (evalCache.containsKey(expression)) {
             return evalCache.get(expression);
         }
@@ -368,6 +369,7 @@ public class Utils {
         // weighted selection
         double totalWeight = 0;
         List<T> selectedEntries = new ArrayList<>();
+        if (entries.isEmpty()) return selectedEntries;
         List<Pair<T, Double>> totalEntries = new ArrayList<>();
         for (T entry : entries){
             totalWeight += entry.getWeight(luck);
