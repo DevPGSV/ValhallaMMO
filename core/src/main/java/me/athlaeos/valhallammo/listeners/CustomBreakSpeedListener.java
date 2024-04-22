@@ -24,6 +24,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import static me.athlaeos.valhallammo.ValhallaMMO.logWarning;
+
 public class CustomBreakSpeedListener implements Listener {
     private static final boolean BLOCK_RECOVERY = ValhallaMMO.getPluginConfig().getBoolean("block_recovery", true);
     private static final int BLOCK_RECOVERY_DELAY = ValhallaMMO.getPluginConfig().getInt("block_recovery_delay", 60);
@@ -179,6 +181,24 @@ public class CustomBreakSpeedListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent e){
         fatiguePlayer(e.getPlayer());
+
+        ValhallaMMO.getInstance().getServer().getScheduler().runTaskLater(ValhallaMMO.getInstance(), () -> {
+            PotionEffect fatigue = e.getPlayer().getPotionEffect(PotionEffectType.SLOW_DIGGING);
+            if (fatigue == null || fatigue.getAmplifier() < 0 || fatigue.getAmplifier() > 4) {
+                logWarning(String.format("Mining fatigue effect for custom break speed not active for player %s. Activating...", e.getPlayer().getName() ));
+                fatiguePlayer(e.getPlayer());
+            }
+        },  10L);
+
+        ValhallaMMO.getInstance().getServer().getScheduler().runTaskLater(ValhallaMMO.getInstance(), () -> {
+            PotionEffect fatigue = e.getPlayer().getPotionEffect(PotionEffectType.SLOW_DIGGING);
+            if (fatigue == null || fatigue.getAmplifier() < 0 || fatigue.getAmplifier() > 4) {
+                logWarning(String.format("Mining fatigue effect for custom break speed not active for player %s. Activating...", e.getPlayer().getName() ));
+                fatiguePlayer(e.getPlayer());
+            }
+        },  40L);
+
+
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
