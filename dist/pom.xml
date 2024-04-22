@@ -27,11 +27,13 @@
             <artifactId>valhallammo-v1_20_R2</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>me.athlaeos</groupId>
             <artifactId>valhallammo-v1_20_R1</artifactId>
             <version>${project.version}</version>
         </dependency>
+        -->
         <dependency>
             <groupId>me.athlaeos</groupId>
             <artifactId>valhallammo-v1_19_R3</artifactId>
